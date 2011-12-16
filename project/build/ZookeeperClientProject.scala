@@ -1,21 +1,17 @@
 import sbt._
-import Process._
 import com.twitter.sbt._
 
-class ZookeeperClientProject(info: ProjectInfo) extends StandardProject(info) with SubversionPublisher {
-
-  override def subversionRepository = Some("http://svn.local.twitter.com/maven-public")
-
-  // Maven repositories
-  val mavenDotOrg = "repo1" at "http://repo1.maven.org/maven2/"
-  val jBoss = "jboss-repo" at "http://repository.jboss.org/maven2/"
-  val apache = "apache" at "http://people.apache.org/repo/m2-ibiblio-rsync-repository/"
-
-  // dependencies
-  val slf4jApi = "org.slf4j" % "slf4j-api" % "1.5.8"
-  val slf4jLog = "org.slf4j" % "slf4j-log4j12" % "1.5.8"
-  val log4j = "log4j" % "log4j" % "1.2.16"
-  val specs = "org.scala-tools.testing" % "specs_2.9.1" % "1.6.9" % "test"
+class ZookeeperClientProject(info: ProjectInfo) extends StandardProject(info) {
+  val slf4jVersion = "1.6.4"
+  val slf4jApi = "org.slf4j" % "slf4j-api" % slf4jVersion
+  val log4jOverSlf4j = "org.slf4j" % "log4j-over-slf4j" % slf4jVersion
+  val apacheZookeeper = "org.apache" % "zookeeper" % "3.3.1"
+  val specs = "org.scala-tools.testing" %% "specs" % "1.6.9" % "test"
+  
+  override def ivyXML = 
+    <dependencies>
+      <exclude name="log4j" />
+    </dependencies>
 
   override def pomExtra =
     <licenses>
@@ -25,5 +21,4 @@ class ZookeeperClientProject(info: ProjectInfo) extends StandardProject(info) wi
         <distribution>repo</distribution>
       </license>
     </licenses>
-
 }
