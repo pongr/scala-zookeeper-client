@@ -1,5 +1,9 @@
 # scala-zookeeper-client
 
+## Pongr Fork
+
+This is essentially Twitter's version 2.0.0, upgraded to Scala 2.9.1, which logs to slf4j.
+
 ## About
 
 A Scala client for [Apache ZooKeeper](http://hadoop.apache.org/zookeeper/), "a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services".
